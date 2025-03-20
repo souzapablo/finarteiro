@@ -1,35 +1,34 @@
 ﻿using Finarteiro.UnitTests.Fakers.Suppliers;
-using FluentAssertions;
 using System.ComponentModel;
 
 namespace Finarteiro.UnitTests.Common.Base;
 
 public class EntityTests
 {
-    [Fact, DisplayName("Entities should set IsDelete to true when Delete is called")]
+    [Fact, DisplayName("Entities should set IsDelete to true when deleted")]
     public void ShouldSetIsDeleteToTrue_WhenDeleteIsCalled()
     {
         // Arrange
-        var sut = SupplierFaker.Generate();
+        var sut = CustomerFaker.Generate();
 
         // Act
         sut.Delete();
 
         // Assert
-        sut.IsDeleted.Should().BeTrue();
+        Assert.True(sut.IsDeleted); 
     }
 
-    [Fact, DisplayName("Entities should update LastUpdate when Delete is called")]
+    [Fact, DisplayName("Entities should update LastUpdate when deleted")]
     public void ShouldUpdateLastUpdate_WhenDeleteIsCalled()
     {
         // Arrange
-        var sut = SupplierFaker.Generate();
+        var sut = CustomerFaker.Generate();
         var initialDate = sut.LastUpdate;
 
         // Act
         sut.Delete();
 
         // Assert
-        sut.LastUpdate.Should().NotBe(initialDate);
+        Assert.True(sut.LastUpdate > initialDate);
     }
 }

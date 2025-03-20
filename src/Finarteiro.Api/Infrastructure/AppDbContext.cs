@@ -1,5 +1,4 @@
-﻿using Finarteiro.Api.Features.Products;
-using Finarteiro.Api.Features.Suppliers;
+﻿using Finarteiro.Api.Features.Customers;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -10,8 +9,7 @@ public class AppDbContext : DbContext
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options) { }
 
-    public DbSet<Supplier> Suppliers { get; private set; }
-    public DbSet<Product> Products { get; private set; }
+    public DbSet<Customer> Customers { get; private set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) => 
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());

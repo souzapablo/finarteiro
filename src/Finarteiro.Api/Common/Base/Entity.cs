@@ -2,7 +2,7 @@
 
 public abstract class Entity
 {
-    public long Id { get; private set; }
+    public Guid Id { get; private set; } = Guid.NewGuid();
     public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
     public DateTime LastUpdate { get; private set; } = DateTime.UtcNow;
     public bool IsDeleted { get; private set; } = false;
