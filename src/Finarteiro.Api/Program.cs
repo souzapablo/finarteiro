@@ -1,9 +1,14 @@
 using Finarteiro.Api.Features.Customers;
+using Finarteiro.Api.Features.Customers.Create;
 using Finarteiro.Api.Infrastructure;
+using FluentValidation;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddValidatorsFromAssemblyContaining(typeof(CreateCustomerCommandValidator));
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(cfg =>
