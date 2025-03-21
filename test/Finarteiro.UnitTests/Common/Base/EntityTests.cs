@@ -1,4 +1,4 @@
-﻿using Finarteiro.UnitTests.Fakers.Suppliers;
+﻿using Finarteiro.UnitTests.Fakers.Customers;
 using System.ComponentModel;
 
 namespace Finarteiro.UnitTests.Common.Base;

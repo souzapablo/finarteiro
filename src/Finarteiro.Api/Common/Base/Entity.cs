@@ -1,8 +1,8 @@
 ﻿namespace Finarteiro.Api.Common.Base;
 
-public abstract class Entity
+public abstract class Entity<TId> where TId : Id, new()
 {
-    public Guid Id { get; private set; } = Guid.NewGuid();
+    public TId Id { get; private set; } = new();
     public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
     public DateTime LastUpdate { get; private set; } = DateTime.UtcNow;
     public bool IsDeleted { get; private set; } = false;
@@ -15,4 +15,9 @@ public abstract class Entity
 
     protected void Update() =>
         LastUpdate = DateTime.UtcNow;
+}
+
+public abstract class Id
+{
+    public Guid Value { get; private set; } = Guid.NewGuid();
 }

@@ -1,7 +1,7 @@
 ﻿using Bogus;
 using Finarteiro.Api.Features.Customers;
 
-namespace Finarteiro.UnitTests.Fakers.Suppliers;
+namespace Finarteiro.UnitTests.Fakers.Customers;
 
 public static class CustomerFaker
 {

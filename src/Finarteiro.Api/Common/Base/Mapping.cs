@@ -3,11 +3,17 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Finarteiro.Api.Common.Base;
 
-public abstract class Mapping<T> : IEntityTypeConfiguration<T> where T : Entity
+public abstract class Mapping<TEntity, TId> : IEntityTypeConfiguration<TEntity> 
+    where TEntity : Entity<TId>
+    where TId : Id, new()
 {
-    public void Configure(EntityTypeBuilder<T> builder)
+    public void Configure(EntityTypeBuilder<TEntity> builder)
     {
-        builder.HasKey(e => e.Id);
+        builder.Property(e => e.Id)
+            .HasConversion(
+                id => id.Value,
+                dbValue => (TId)Activator.CreateInstance(typeof(TId), dbValue)!
+            );
 
         builder.HasQueryFilter(e => !e.IsDeleted);
 
@@ -23,5 +29,5 @@ public abstract class Mapping<T> : IEntityTypeConfiguration<T> where T : Entity
         ConfigureMapping(builder);
     }
 
-    protected abstract void ConfigureMapping(EntityTypeBuilder<T> builder);
+    protected abstract void ConfigureMapping(EntityTypeBuilder<TEntity> builder);
 }

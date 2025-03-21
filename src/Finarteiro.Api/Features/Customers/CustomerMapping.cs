@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Finarteiro.Api.Features.Customers;
 
-public class CustomerMapping : Mapping<Customer>
+public class CustomerMapping : Mapping<Customer, CustomerId>
 {
     protected override void ConfigureMapping(EntityTypeBuilder<Customer> builder)
     {
