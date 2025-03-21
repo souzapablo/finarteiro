@@ -10,8 +10,9 @@ public class CreateCustomerEndpoint : IEndpoint
 
     public static async Task<IResult> HandleAsync(
         ISender sender,
-        CreateCustomerCommand command)
+        CreateCustomerInput input)
     {
+        var command = input.ToCommand();
         var result = await sender.Send(command);
 
         return TypedResults.Created($"api/v1/customers/{result}", result);
