@@ -15,6 +15,8 @@ public class CreateCustomerEndpoint : IEndpoint
         var command = input.ToCommand();
         var result = await sender.Send(command);
 
-        return TypedResults.Created($"api/v1/customers/{result}", result);
+        return result.IsSuccess ?
+            TypedResults.Created($"api/v1/customers/{result.Data}", result) :
+            TypedResults.BadRequest(result.Error);
     }
 }

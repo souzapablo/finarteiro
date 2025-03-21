@@ -1,11 +1,12 @@
-﻿using Finarteiro.Api.Infrastructure;
+﻿using Finarteiro.Api.Common.Base;
+using Finarteiro.Api.Infrastructure;
 using MediatR;
 
 namespace Finarteiro.Api.Features.Customers.Create;
 
-public class CreateCustomerCommandHandler(AppDbContext context) : IRequestHandler<CreateCustomerCommand, Guid>
+public class CreateCustomerCommandHandler(AppDbContext context) : IRequestHandler<CreateCustomerCommand, Result<Guid>>
 {
-    public async Task<Guid> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
     {
         var customer = new Customer(request.FirstName, request.LastName, request.Email, request.PhoneNumber);
 
