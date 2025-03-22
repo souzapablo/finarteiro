@@ -3,12 +3,17 @@ using Finarteiro.Api.Features.Customers;
 using Finarteiro.Api.Features.Customers.Create;
 using Finarteiro.Api.Infrastructure;
 using Finarteiro.Api.Infrastructure.ExceptionHandling;
+using Finarteiro.Api.Infrastructure.Middlewares;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((context, loggerConfig) => 
+    loggerConfig.ReadFrom.Configuration(context.Configuration));
 
 builder.Services.AddValidatorsFromAssemblyContaining(typeof(CreateCustomerCommandValidator));
 
@@ -19,11 +24,14 @@ builder.Services.AddDbContext<AppDbContext>(cfg =>
 
 var assembly = typeof(Program).Assembly;
 builder.Services.AddMediatR(configuration =>
-    configuration.RegisterServicesFromAssembly(assembly));
+{
+    configuration.RegisterServicesFromAssembly(assembly);
+    configuration.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
+    configuration.AddOpenBehavior(typeof(RequestLoggingPipelineBehavior<,>));
+});
 
 builder.Services.AddValidatorsFromAssembly(assembly, includeInternalTypes: true);
 
-builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
@@ -56,6 +64,10 @@ if (app.Environment.IsDevelopment())
         options.RoutePrefix = string.Empty;
     });
 }
+
+app.UseMiddleware<RequestLogContextMiddleware>();
+
+app.UseSerilogRequestLogging();
 
 app.UseExceptionHandler();
 

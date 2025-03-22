@@ -9,7 +9,7 @@ public static class ResultExtensions
         result switch
         {
             { IsSuccess: true } => throw new InvalidOperationException(),
-            IValidationResult validationResult => TypedResults.BadRequest(
+            IValidationResult validationResult => TypedResults.UnprocessableEntity(
                 CreateProblemDetails(
                     "Validation Error",
                     StatusCodes.Status422UnprocessableEntity,
