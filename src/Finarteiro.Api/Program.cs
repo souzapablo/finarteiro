@@ -2,6 +2,7 @@ using Finarteiro.Api.Behaviors;
 using Finarteiro.Api.Features.Customers;
 using Finarteiro.Api.Features.Customers.Create;
 using Finarteiro.Api.Infrastructure;
+using Finarteiro.Api.Infrastructure.Middlewares;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,9 @@ builder.Services.AddMediatR(configuration =>
 builder.Services.AddValidatorsFromAssembly(assembly, includeInternalTypes: true);
 
 builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
+
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -52,6 +56,8 @@ if (app.Environment.IsDevelopment())
         options.RoutePrefix = string.Empty;
     });
 }
+
+app.UseExceptionHandler();
 
 app.MapCustomerEndpoints();
 
