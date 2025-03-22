@@ -1,12 +1,29 @@
-﻿using Finarteiro.Api.Common.Base;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Finarteiro.Api.Features.Customers;
 
-public class CustomerMapping : Mapping<Customer, CustomerId>
+public class CustomerMapping : IEntityTypeConfiguration<Customer>
 {
-    protected override void ConfigureMapping(EntityTypeBuilder<Customer> builder)
+    public void Configure(EntityTypeBuilder<Customer> builder)
     {
+        builder.Property(e => e.Id)
+            .HasConversion(
+                id => id.Value,
+                dbValue => (CustomerId)Activator.CreateInstance(typeof(CustomerId), dbValue)!
+            );
+
+        builder.HasQueryFilter(e => !e.IsDeleted);
+
+        builder.Property(e => e.IsDeleted)
+            .HasDefaultValue(false);
+
+        builder.Property(e => e.CreatedAt)
+            .HasDefaultValueSql("now()");
+
+        builder.Property(e => e.LastUpdate)
+            .HasDefaultValueSql("now()");
+
         builder.Property(c => c.FirstName)
             .HasMaxLength(50);
 

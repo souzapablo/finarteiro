@@ -6,7 +6,6 @@ using Finarteiro.Api.Infrastructure;
 using Finarteiro.Api.Infrastructure.ExceptionHandling;
 using Finarteiro.Api.Infrastructure.Middlewares;
 using FluentValidation;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Serilog;
