@@ -30,10 +30,10 @@ public sealed class RequestLoggingPipelineBehavior<TRequest, TResponse>(ILogger<
         {
             using (LogContext.PushProperty("Error", result.Error, true)) 
             { 
-                _logger.LogError("Completed request {RequestName} with error",result.Error);
+                _logger.LogError("Completed request {RequestName} with error", requestName);
             }
         }
-
+            
         return result;
     }
 }
