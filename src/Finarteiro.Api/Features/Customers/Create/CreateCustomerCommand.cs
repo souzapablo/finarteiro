@@ -1,4 +1,4 @@
-﻿using Finarteiro.Api.Common.Base;
+﻿using Finarteiro.Api.Common.Result;
 using MediatR;
 
 namespace Finarteiro.Api.Features.Customers.Create;

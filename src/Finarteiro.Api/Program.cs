@@ -1,8 +1,9 @@
+using Finarteiro.Api.Behaviors;
 using Finarteiro.Api.Features.Customers;
 using Finarteiro.Api.Features.Customers.Create;
 using Finarteiro.Api.Infrastructure;
 using FluentValidation;
-using Microsoft.AspNetCore.Identity;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -18,6 +19,10 @@ builder.Services.AddDbContext<AppDbContext>(cfg =>
 var assembly = typeof(Program).Assembly;
 builder.Services.AddMediatR(configuration =>
     configuration.RegisterServicesFromAssembly(assembly));
+
+builder.Services.AddValidatorsFromAssembly(assembly, includeInternalTypes: true);
+
+builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>

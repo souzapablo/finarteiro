@@ -1,4 +1,4 @@
-﻿using Finarteiro.Api.Common.Base;
+﻿using Finarteiro.Api.Common.Result;
 using Finarteiro.Api.Infrastructure;
 using MediatR;
 

@@ -1,8 +1,9 @@
-﻿using System.Text.Json.Serialization;
+﻿using Finarteiro.Api.Common.Base;
+using System.Text.Json.Serialization;
 
-namespace Finarteiro.Api.Common.Base;
+namespace Finarteiro.Api.Common.Result;
 
-public class Result
+public record Result
 {
     protected internal Result(bool isSuccess, Error error)
     {
@@ -41,7 +42,7 @@ public class Result
     public static Result<TValue> Create<TValue>(TValue? value) => value is not null ? Success(value) : Failure<TValue>(Error.NullValue);
 }
 
-public class Result<TData> : Result
+public record Result<TData> : Result
 {
     private readonly TData? _data;
 
