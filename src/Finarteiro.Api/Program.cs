@@ -1,4 +1,5 @@
 using Finarteiro.Api.Behaviors;
+using Finarteiro.Api.Extensions;
 using Finarteiro.Api.Features.Customers;
 using Finarteiro.Api.Features.Customers.Create;
 using Finarteiro.Api.Infrastructure;
@@ -26,8 +27,8 @@ var assembly = typeof(Program).Assembly;
 builder.Services.AddMediatR(configuration =>
 {
     configuration.RegisterServicesFromAssembly(assembly);
-    configuration.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
     configuration.AddOpenBehavior(typeof(RequestLoggingPipelineBehavior<,>));
+    configuration.AddOpenBehavior(typeof(ValidationPipelineBehavior<,>));
 });
 
 builder.Services.AddValidatorsFromAssembly(assembly, includeInternalTypes: true);
@@ -62,6 +63,7 @@ if (app.Environment.IsDevelopment())
     {
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
         options.RoutePrefix = string.Empty;
+        app.ApplyMigrations();
     });
 }
 
