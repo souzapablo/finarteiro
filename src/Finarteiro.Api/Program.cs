@@ -74,3 +74,5 @@ app.UseExceptionHandler();
 app.MapCustomerEndpoints();
 
 app.Run();
+
+public partial class Program { }
