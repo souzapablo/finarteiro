@@ -2,7 +2,7 @@ using Finarteiro.Api.Behaviors;
 using Finarteiro.Api.Features.Customers;
 using Finarteiro.Api.Features.Customers.Create;
 using Finarteiro.Api.Infrastructure;
-using Finarteiro.Api.Infrastructure.Middlewares;
+using Finarteiro.Api.Infrastructure.ExceptionHandling;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Finarteiro.Api.Infrastructure.Middlewares;
+namespace Finarteiro.Api.Infrastructure.ExceptionHandling;
 
 public class GlobalExceptionHandler(
      ILogger<GlobalExceptionHandler> logger) : IExceptionHandler
