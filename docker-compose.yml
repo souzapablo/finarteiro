@@ -1,0 +1,28 @@
+services:
+  finarteiro.api:
+    image: ${DOCKER_REGISTRY-}finarteiroapi
+    build:
+      context: .
+      dockerfile: src/Finarteiro.Api/Dockerfile
+    ports:
+        - 5000:5000
+        - 5001:5001
+  finarteiro.database:
+    container_name: finarteiro.database
+    image: "postgres:17.4-alpine3.21"
+    environment:
+      - POSTGRES_DB=finarteiro-dev
+      - POSTGRES_USER=postgres 
+      - POSTGRES_PASSWORD=password@123
+    ports:
+      - 5432:5432
+    volumes:
+      - './.containers/finarteiro-dev:/var/lib/postgresql/data'
+  runtrackr.seq:
+    container_name: runtrackr.seq
+    image: datalust/seq:latest
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - 5341:5341
+      - 8081:80 
