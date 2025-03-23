@@ -27,4 +27,4 @@ jobs:
         run: dotnet build src/Finarteiro.Api --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test src/Finarteiro.Api --configuration Release --no-build
+        run: dotnet test --configuration Release --no-build
