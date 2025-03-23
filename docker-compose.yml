@@ -18,8 +18,8 @@ services:
       - 5432:5432
     volumes:
       - './.containers/finarteiro-dev:/var/lib/postgresql/data'
-  runtrackr.seq:
-    container_name: runtrackr.seq
+  finarteiro.seq:
+    container_name: finarteiro.seq
     image: datalust/seq:latest
     environment:
       - ACCEPT_EULA=Y

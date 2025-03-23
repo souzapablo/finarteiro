@@ -1,0 +1,30 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - "**"
+
+env:
+  DOTNET_VERSION: "8.0.x"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Install dependencies
+        run: dotnet restore src/Finarteiro.Api
+
+      - name: Build
+        run: dotnet build src/Finarteiro.Api --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test src/Finarteiro.Api --configuration Release --no-build
