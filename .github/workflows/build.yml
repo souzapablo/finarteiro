@@ -21,10 +21,10 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Install dependencies
-        run: dotnet restore src/Finarteiro.Api
+        run: dotnet restore ./Finarteiro.sln
 
       - name: Build
-        run: dotnet build src/Finarteiro.Api --configuration Release --no-restore
+        run: dotnet build ./Finarteiro.sln --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test --configuration Release --no-build
+        run: dotnet test ./Finarteiro.sln --configuration Release --no-restore --no-build
