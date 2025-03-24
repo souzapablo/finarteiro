@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog((context, loggerConfig) => 
     loggerConfig.ReadFrom.Configuration(context.Configuration));
 
-builder.Services.AddValidatorsFromAssemblyContaining(typeof(CreateCustomerCommandValidator));
+builder.Services.AddValidatorsFromAssemblyContaining(typeof(CreateCustomerValidator));
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(cfg =>

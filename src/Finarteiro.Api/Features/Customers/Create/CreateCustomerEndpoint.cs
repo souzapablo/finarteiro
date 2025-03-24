@@ -19,8 +19,7 @@ public class CreateCustomerEndpoint : IEndpoint
 
     public static async Task<IResult> HandleAsync(
         ISender sender,
-        CreateCustomerCommand command,
-        IValidator<CreateCustomerCommand> validator)
+        CreateCustomerCommand command)
     {
         var result = await sender.Send(command);
 

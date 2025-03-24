@@ -2,9 +2,9 @@
 
 namespace Finarteiro.Api.Features.Customers.Create;
 
-public class CreateCustomerCommandValidator : AbstractValidator<CreateCustomerCommand>
+public class CreateCustomerValidator : AbstractValidator<CreateCustomerCommand>
 {
-    public CreateCustomerCommandValidator()
+    public CreateCustomerValidator()
     {
         RuleFor(i => i.Email)
             .EmailAddress()

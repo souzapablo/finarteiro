@@ -4,6 +4,12 @@ using MediatR;
 
 namespace Finarteiro.Api.Features.Customers.Create;
 
+public record CreateCustomerCommand(
+    string FirstName,
+    string? LastName,
+    string? Email,
+    string? PhoneNumber) : IRequest<Result<Guid>>;
+
 public class CreateCustomerCommandHandler(AppDbContext context) : IRequestHandler<CreateCustomerCommand, Result<Guid>>
 {
     public async Task<Result<Guid>> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
