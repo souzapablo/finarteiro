@@ -13,9 +13,7 @@ public class CreateCustomerEndpoint : IEndpoint
             .WithName("Create customer")
             .WithDescription("Create a new customer in the application")
             .Produces<Result<Guid>>(StatusCodes.Status201Created)
-            .ProducesProblem(StatusCodes.Status422UnprocessableEntity)
-            .ProducesProblem(StatusCodes.Status400BadRequest)
-            .ProducesProblem(StatusCodes.Status500InternalServerError);
+            .ProducesProblem(StatusCodes.Status422UnprocessableEntity);
 
     public static async Task<IResult> HandleAsync(
         ISender sender,

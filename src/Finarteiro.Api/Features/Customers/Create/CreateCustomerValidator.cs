@@ -6,24 +6,22 @@ public class CreateCustomerValidator : AbstractValidator<CreateCustomerCommand>
 {
     public CreateCustomerValidator()
     {
-        RuleFor(i => i.Email)
-            .EmailAddress()
-            .WithMessage("Value must be a valid e-mail.");
-
         RuleFor(i => i.FirstName)
             .NotEmpty()
-            .WithMessage("First name must be informed.")
+            .WithMessage(CustomerErrors.CreateUser.MissingFirstName.Message)
             .MaximumLength(50)
-            .WithMessage("Fist name must have less than 50 characters.");
+            .WithMessage(CustomerErrors.CreateUser.InvalidFirstName.Message);
 
         RuleFor(i => i.LastName)
-            .NotEmpty()
-            .WithMessage("Last name must be informed.")
             .MaximumLength(50)
-            .WithMessage("Last name must have less than 50 characters.");
+            .WithMessage(CustomerErrors.CreateUser.InvalidLastName.Message);
+
+        RuleFor(i => i.Email)
+            .EmailAddress()
+            .WithMessage(CustomerErrors.CreateUser.InvalidEmail.Message);
 
         RuleFor(i => i.PhoneNumber)
             .Length(11)
-            .WithMessage("Value must be a valid phone number.");
+            .WithMessage(CustomerErrors.CreateUser.InvalidPhoneNumber.Message);
     }
 }
